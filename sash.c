@@ -10,12 +10,10 @@
 
 #define MAX_LINE 80
 
-// Fungsi pembantu untuk menyusun prompt berdasarkan variabel PREFIX
 void build_prompt(char *dest, size_t dest_size, const char *format, const char *user, const char *host, const char *dir) {
     size_t i = 0, j = 0;
     while (format[i] != '\0' && j < dest_size - 1) {
         if (format[i] == '\\' && format[i + 1] != '\0') {
-            // Deteksi simbol format kustom
             if (format[i + 1] == 'u') {
                 j += snprintf(dest + j, dest_size - j, "%s", user);
                 i += 2;
@@ -26,7 +24,6 @@ void build_prompt(char *dest, size_t dest_size, const char *format, const char *
                 j += snprintf(dest + j, dest_size - j, "%s", dir);
                 i += 2;
             } else {
-                // Jika bukan simbol format, cetak karakter backslash asli
                 dest[j++] = format[i++];
             }
         } else {
